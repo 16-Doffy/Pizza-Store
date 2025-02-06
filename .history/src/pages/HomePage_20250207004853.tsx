@@ -77,15 +77,18 @@ import CountPizza from "../sections/CountPizza";
 
 const HomePage = () => {
   const [pizzas, setPizzas] = useState<Pizza[]>([]);
-
   const [count, setCount] = useState(0); // Dùng để cập nhật pizzas
   const [counter, setCounter] = useState(0); // Dùng để đếm số lần nhấn "Increase"
+
   useEffect(() => {
     fetch('https://668a837a2c68eaf3211d01c4.mockapi.io/laptop/product')
       .then((res) => res.json())
-     .then(data => setPizzas(data))
-  },[]);
-       
+      .then(({ data }) => {
+        console.log(data); // Kiểm tra dữ liệu trả về
+        setPizzas(data);
+      })
+      .catch((error) => console.error('Error fetching data: ', error)); // Xử lý lỗi nếu có
+  }, []);
   
   return (
     <div

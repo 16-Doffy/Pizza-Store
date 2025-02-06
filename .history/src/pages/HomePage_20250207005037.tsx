@@ -84,7 +84,7 @@ const HomePage = () => {
     fetch('https://668a837a2c68eaf3211d01c4.mockapi.io/laptop/product')
       .then((res) => res.json())
      .then(data => setPizzas(data))
-  },[]);
+  },[];
        
   
   return (

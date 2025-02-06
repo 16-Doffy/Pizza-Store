@@ -3,7 +3,7 @@ import { Pizza } from "../models/Pizza.model";
 
 type Props = Pizza;
 
-const CardPizza = ({ productName, description }: Props) => {
+const CardPizza = ({ id, title, description }: Props) => {
   return (
     <div className="card-items">
       <img src="/pizza.png" alt="pizza" className="card-image-pizza " />
@@ -11,7 +11,7 @@ const CardPizza = ({ productName, description }: Props) => {
       <div className="card-content">
         <div>
           <div style={{ fontSize: "20px", fontWeight: 600, color: "#fff" }}>
-            {productName}
+            {title}
           </div>
           <div
             style={{

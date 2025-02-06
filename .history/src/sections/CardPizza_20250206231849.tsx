@@ -1,9 +1,13 @@
 import React from "react";
 import { Pizza } from "../models/Pizza.model";
-
-type Props = Pizza;
-
-const CardPizza = ({ productName, description }: Props) => {
+type Props = Pizza & {
+    hanldeRemovePizza: (id: number) => void
+};
+const CardPizza = ({
+     title,
+      description,
+      hanldeRemovePizza
+     }: Props) => {
   return (
     <div className="card-items">
       <img src="/pizza.png" alt="pizza" className="card-image-pizza " />
@@ -11,7 +15,7 @@ const CardPizza = ({ productName, description }: Props) => {
       <div className="card-content">
         <div>
           <div style={{ fontSize: "20px", fontWeight: 600, color: "#fff" }}>
-            {productName}
+            {title}
           </div>
           <div
             style={{

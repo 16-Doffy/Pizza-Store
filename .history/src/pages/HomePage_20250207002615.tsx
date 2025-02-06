@@ -76,17 +76,20 @@ import { Pizza } from "../models/Pizza.model";
 import CountPizza from "../sections/CountPizza";
 
 const HomePage = () => {
-  const [pizzas, setPizzas] = useState<Pizza[]>([]);
+  const [pizzas, setPizzas] = useState<Pizza[]>([
+    { id: 1, title: "Pizza thit heo", description: "sot muoi" },
+    { id: 2, title: "Pizza pho mai", description: "sot pho mai" },
+    { id: 3, title: "Pizza hai san", description: "sot hai san" },
+  ]);
 
   const [count, setCount] = useState(0); // Dùng để cập nhật pizzas
   const [counter, setCounter] = useState(0); // Dùng để đếm số lần nhấn "Increase"
+
   useEffect(() => {
-    fetch('https://668a837a2c68eaf3211d01c4.mockapi.io/laptop/product')
-      .then((res) => res.json())
-     .then(data => setPizzas(data))
-  },[]);
-       
-  
+ fetch('http://localhost:3000/products')
+ .then(res => res.json())
+ .then(data => setPizzas(data));
+  },[])
   return (
     <div
       style={{
@@ -100,13 +103,15 @@ const HomePage = () => {
           <CardPizza
             key={item.id}
             id={item.id}
-            productName={item.productName}
+            title={item.title}
             description={item.description}
           />
         ))}
       </div>
 
-      <div style={{ display:'flex',alignItems:'center',justifyContent:'center', marginTop:'200px' }}>
+     
+
+      <div style={{ alignItems:'center',justifyContent:'center' }}>
         <button onClick={() => setCounter(counter + 1)}>Increase Counter</button>
         <button onClick={() => setCounter(counter - 1)}>Decrease Counter</button>
       

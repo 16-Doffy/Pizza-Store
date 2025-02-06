@@ -1,17 +1,22 @@
 import React from "react";
 import { Pizza } from "../models/Pizza.model";
-
-type Props = Pizza;
-
-const CardPizza = ({ productName, description }: Props) => {
+type Props = Pizza & {
+    hanldeRemovePizza: (id: number) => void
+};
+const CardPizza = ({
+    id,
+     title,
+      description,
+      hanldeRemovePizza
+     }: Props) => {
   return (
-    <div className="card-items">
+    <div className="card-items" onClick={() => hanldeRemovePizza}>
       <img src="/pizza.png" alt="pizza" className="card-image-pizza " />
       <div style={{ height: "50%", width: "100%" }}></div>
       <div className="card-content">
         <div>
           <div style={{ fontSize: "20px", fontWeight: 600, color: "#fff" }}>
-            {productName}
+            {title}
           </div>
           <div
             style={{

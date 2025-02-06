@@ -11,7 +11,7 @@ const CardPizza = ({ productName, description }: Props) => {
       <div className="card-content">
         <div>
           <div style={{ fontSize: "20px", fontWeight: 600, color: "#fff" }}>
-            {productName}
+            {title}
           </div>
           <div
             style={{
