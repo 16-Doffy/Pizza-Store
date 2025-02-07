@@ -90,7 +90,7 @@ const HomePage = () => {
       
 const tinhTong = useMemo (() => {
   return count + 1;
-},[count])
+},[])
   return (
     <div
       style={{
@@ -112,10 +112,7 @@ const tinhTong = useMemo (() => {
         <div style={{display:'flex', width:'100%',justifyContent:'center'}}>
         <ButtonField> Show more</ButtonField>
         </div>
-        {tinhTong}
-       
         <button onClick={() => setCount (count + 1)}>Increase</button>
-        {count}
       </div>
     </div>
   );

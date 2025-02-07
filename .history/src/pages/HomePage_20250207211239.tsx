@@ -70,27 +70,24 @@
 // };
 
 // export default HomePage;
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import CardPizza from "../sections/CardPizza";
 import { Pizza } from "../models/Pizza.model";
 import CountPizza from "../sections/CountPizza";
 import ButtonField from "../components/ButtonField";
-import TextField from "../components/TextField";
 
 const HomePage = () => {
   const [pizzas, setPizzas] = useState<Pizza[]>([]);
-  
+
   const [count, setCount] = useState(0); // Dùng để cập nhật pizzas
-  
+  const [counter, setCounter] = useState(0); // Dùng để đếm số lần nhấn "Increase"
   useEffect(() => {
     fetch('https://668a837a2c68eaf3211d01c4.mockapi.io/laptop/product')
       .then((res) => res.json())
      .then(data => setPizzas(data))
   },[]);
-      
-const tinhTong = useMemo (() => {
-  return count + 1;
-},[count])
+       
+  
   return (
     <div
       style={{
@@ -99,7 +96,6 @@ const tinhTong = useMemo (() => {
         overflow: "auto",
       }}
     >
-      <TextField placeholder="Enter search" width="250px" />
       <div className="wrapper-card-items">
         {pizzas.map((item) => (
           <CardPizza
@@ -109,14 +105,19 @@ const tinhTong = useMemo (() => {
             description={item.description}
           />
         ))}
-        <div style={{display:'flex', width:'100%',justifyContent:'center'}}>
+        <div style={{display:'flex', alignItems:'center',justifyContent:'center'}}></div>
         <ButtonField> Show more</ButtonField>
-        </div>
-        {tinhTong}
-       
-        <button onClick={() => setCount (count + 1)}>Increase</button>
-        {count}
       </div>
+
+      <div style={{ display:'flex',alignItems:'center',justifyContent:'center', marginTop:'200px' }}>
+        <button onClick={() => setCounter(counter + 1)}>Increase Counter</button>
+        <button onClick={() => setCounter(counter - 1)}>Decrease Counter</button>
+      
+        <CountPizza counter={counter} setCounter={setCounter} />
+       
+      </div>
+      <div>Counter: {counter}</div>
+      <div>Pizza Count: {count}</div>
     </div>
   );
 };

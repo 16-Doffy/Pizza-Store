@@ -90,7 +90,7 @@ const HomePage = () => {
       
 const tinhTong = useMemo (() => {
   return count + 1;
-},[count])
+},[])
   return (
     <div
       style={{
