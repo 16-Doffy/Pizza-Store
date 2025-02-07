@@ -15,8 +15,10 @@ const HomePage = () => {
       .then(res => res.json())
       .then((data) => {
         setIsLoading(false);
-        setPizzas([...pizzas, ...data]);
+        console.log("API Data:", data);
+        setPizzas(Array.isArray(data) ? data : []);
       })
+      .catch((error) => console.error("Fetch error:", error));
   }, [page]); // Thêm page vào dependency để tự động gọi lại API khi trang thay đổi
   
 

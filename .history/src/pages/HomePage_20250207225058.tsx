@@ -6,17 +6,16 @@ import ButtonField from "../components/ButtonField";
 
 const HomePage = () => {
   const [pizzas, setPizzas] = useState<Pizza[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
   const [page, setPage] = useState<number>(1);
   
   useEffect(() => {
-    setIsLoading(true)
     fetch(`https://668a837a2c68eaf3211d01c4.mockapi.io/laptop/product?page=${page}`)
       .then(res => res.json())
       .then((data) => {
-        setIsLoading(false);
-        setPizzas([...pizzas, ...data]);
+        console.log("API Data:", data);
+        setPizzas(Array.isArray(data) ? data : []);
       })
+      .catch((error) => console.error("Fetch error:", error));
   }, [page]); // Thêm page vào dependency để tự động gọi lại API khi trang thay đổi
   
 
@@ -45,7 +44,7 @@ const HomePage = () => {
 
       <div
           style={{ display: "flex", width: "100%", justifyContent: "center" }}>
-         <ButtonField loading={isLoading} onClick={() => setPage(page => page + 1)}>
+         <ButtonField onClick={() => setPage(prev => prev + 1)}>
            Show more
             </ButtonField>
         </div>
