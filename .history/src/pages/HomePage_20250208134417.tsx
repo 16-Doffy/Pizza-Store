@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import CardPizza from "../sections/CardPizza";
 import { Pizza } from "../models/Pizza.model";
 import TextField from "../components/TextField";
@@ -28,9 +28,6 @@ const HomePage = () => {
       })
   }, [page]);
   
-  const searchValues = useMemo (() => {
-    return pizzas.filter(item => item.productName?.toUpperCase().indexOf(searchText.toUpperCase()) !== -1);
-    },[searchText]);
 
   return (
     <> 
@@ -51,10 +48,10 @@ const HomePage = () => {
    {
     pizzas.length > 0 && (
       <div>
-      <TextField placeholder="Enter Search" width="250px" onChange={handleSearchText}/>
+      <TextField placeholder="Enter Search" width="250px" />
         <div className="wrapper-card-items">
           {
-          (searchText ? searchValues : pizzas || []).map((item, index) =>
+          (pizzas || []).map((item, index) =>
             <CardPizza
               key={index}
               id={item.id}

@@ -30,7 +30,7 @@ const HomePage = () => {
   
   const searchValues = useMemo (() => {
     return pizzas.filter(item => item.productName?.toUpperCase().indexOf(searchText.toUpperCase()) !== -1);
-    },[searchText]);
+    },[]);
 
   return (
     <> 

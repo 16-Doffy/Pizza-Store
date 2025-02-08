@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import CardPizza from "../sections/CardPizza";
 import { Pizza } from "../models/Pizza.model";
 import TextField from "../components/TextField";
@@ -9,17 +9,9 @@ const HomePage = () => {
   const [pizzas, setPizzas] = useState<Pizza[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [page, setPage] = useState<number>(1);
-  const [ searchText, setSearchText] = useState<string>('');
-  const handleShowMore = () => {
-    setIsLoading(true);
-    setPage(page => page + 1);
-  }
   
-  const handleSearchText = (value: string) => {
-    setSearchText(value)
-  }
   useEffect(() => {
-    
+    setIsLoading(true)
     fetch(`https://668a837a2c68eaf3211d01c4.mockapi.io/laptop/product?page=${page}`)
       .then(res => res.json())
       .then((data) => {
@@ -28,9 +20,6 @@ const HomePage = () => {
       })
   }, [page]);
   
-  const searchValues = useMemo (() => {
-    return pizzas.filter(item => item.productName?.toUpperCase().indexOf(searchText.toUpperCase()) !== -1);
-    },[searchText]);
 
   return (
     <> 
@@ -48,32 +37,28 @@ const HomePage = () => {
         </div>
       )
     }
-   {
-    pizzas.length > 0 && (
-      <div>
-      <TextField placeholder="Enter Search" width="250px" onChange={handleSearchText}/>
-        <div className="wrapper-card-items">
-          {
-          (searchText ? searchValues : pizzas || []).map((item, index) =>
-            <CardPizza
-              key={index}
-              id={item.id}
-              productName={item.productName}
-              description={item.description}
-            />
-          )
-          }
+     <div>
+    <TextField placeholder="Enter Search" width="250px" />
+      <div className="wrapper-card-items">
+        {
+        (pizzas || []).map((item, index) =>
+          <CardPizza
+            key={index}
+            id={item.id}
+            productName={item.productName}
+            description={item.description}
+          />
+        )
+        }
+      </div>
+
+      <div
+          style={{ display: "flex", width: "100%", justifyContent: "center" }}>
+         <ButtonField loading={isLoading} onClick={() => setPage(page => page + 1)}>
+           Show more
+            </ButtonField>
         </div>
-  
-        <div
-            style={{ display: "flex", width: "100%", justifyContent: "center" }}>
-           <ButtonField loading={isLoading} onClick={handleShowMore}>
-             Show more
-              </ButtonField>
-          </div>
-          </div>
-    )
-   }
+        </div>
     </div>
     </>
   )
